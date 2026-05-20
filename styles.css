@@ -185,9 +185,11 @@ footer .separator {
 .version-selector {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-bottom: 15px;
     flex-shrink: 0;
+    flex-wrap: wrap;
 }
 
 .version-btn {
@@ -214,6 +216,63 @@ footer .separator {
     background: var(--accent-blue);
     color: var(--bg-primary);
     box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+}
+
+.version-dropdown-wrapper {
+    position: relative;
+}
+
+.version-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-blue);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 100;
+    min-width: 160px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-item {
+    white-space: nowrap;
+    font-family: 'Crang', 'Orbitron', sans-serif;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(74, 158, 255, 0.2);
+    color: var(--text-secondary);
+    padding: 10px 16px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(74, 158, 255, 0.2);
+    color: var(--text-primary);
+}
+
+/* Leaderboard view title */
+.leaderboard-title {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+    flex-shrink: 0;
 }
 
 /* Main content */

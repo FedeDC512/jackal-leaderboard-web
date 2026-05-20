@@ -55,6 +55,21 @@
             <h1>Leaderboard</h1>
             <p class="subtitle"><a href="https://frobby.itch.io/loot-jackal-loot" target="_blank">LOOT JACKAL, LOOT!</a></p>
         </header>
+
+        <div class="version-selector">
+            <button class="version-btn active" data-version="current"></button>
+            <button class="version-btn" data-version="contest"></button>
+            <div class="version-dropdown-wrapper">
+                <button class="version-btn" id="archives-btn">Archives ▾</button>
+                <div class="version-dropdown hidden" id="archives-dropdown">
+                    <button class="dropdown-item" data-version="v3"></button>
+                    <button class="dropdown-item" data-version="v2"></button>
+                    <button class="dropdown-item" data-version="v1"></button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="leaderboard-title" class="leaderboard-title hidden"></div>
         
         <div class="countdown-container hidden">
             <p class="countdown-label">Time remaining</p>
@@ -79,12 +94,6 @@
             <p id="countdown-expired" class="countdown-expired hidden">⏰ Time's up!</p>
         </div>
 
-        <div class="version-selector">
-            <button class="version-btn active" data-version="current">Current</button>
-            <button class="version-btn" data-version="v2">Ostello Bello</button>
-            <button class="version-btn" data-version="v1">Release</button>
-        </div>
-        
         <main>
             <div id="loading" class="loading">
                 <div class="spinner"></div>

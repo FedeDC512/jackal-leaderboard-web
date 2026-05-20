@@ -1,27 +1,31 @@
 // DOM Elements
 let loadingEl, errorEl, errorMessageEl, leaderboardEl, leaderboardListEl, lastUpdateTimeEl, lastUpdateLabelEl;
-let connectionStatusEl, statusTextEl;
-let versionButtons;
+let connectionStatusEl, statusTextEl, leaderboardTitleEl, countdownContainerEl;
+let versionButtons, archivesBtnEl, archivesDropdownEl;
 
 // Countdown elements
 let countdownEl, countdownExpiredEl;
 let countdownDaysEl, countdownHoursEl, countdownMinutesEl, countdownSecondsEl;
 
-// Countdown target: 18/01/2026 at 20:00 Italian time (CET = UTC+1)
-const COUNTDOWN_TARGET = new Date('2026-01-18T19:00:00Z');
+// Countdown target: 25/06/2026 at 23:59 Italian time (CET = UTC+1)
+const COUNTDOWN_TARGET = new Date('2026-05-24T22:59:59Z');
 
 // App state
 let leaderboardData = {};
 let leaderboardV1Data = null;
 let leaderboardV2Data = null;
-let currentVersion = 'current'; // 'current', 'v1', 'v2'
+let leaderboardV3Data = null;
+let currentVersion = 'current'; // 'current', 'contest', 'v1', 'v2', 'v3'
 let isInitialDataLoaded = false;
 let isConnected = false;
 
-// Static dates for archived leaderboards
-const LEADERBOARD_DATES = {
-    v1: { start: '2025-12-16', end: '2026-01-17' },
-    v2: { start: '2026-02-18', end: '2026-02-18' }
+// Version config — edit labels and dates here
+const VERSIONS = {
+    current: { label: 'Current',       title: 'Current' },
+    contest: { label: 'Trapani', title: 'Trapani Comix & Games 2026', dates: { start: '2026-05-17', end: '2026-05-19' } },
+    v3:      { label: 'Second Wave',   title: 'Second Wave',      dates: { start: '2026-01-18', end: '2026-05-21' } },
+    v2:      { label: 'Ostello Bello', title: 'Ostello Bello 2026',    dates: { start: '2026-02-18', end: '2026-02-18' } },
+    v1:      { label: 'First Wave',       title: 'First Wave: Release',   dates: { start: '2025-12-16', end: '2026-01-17' } }
 };
 
 // Loading timeout (10 seconds)
@@ -47,9 +51,19 @@ async function init() {
     lastUpdateLabelEl = document.getElementById('last-update-label');
     connectionStatusEl = document.getElementById('connection-status');
     statusTextEl = document.getElementById('status-text');
+    leaderboardTitleEl = document.getElementById('leaderboard-title');
     versionButtons = document.querySelectorAll('.version-btn');
-    
+
+    // Populate all button/dropdown labels from VERSIONS config
+    document.querySelectorAll('[data-version]').forEach(el => {
+        const v = VERSIONS[el.dataset.version];
+        if (v) el.textContent = v.label;
+    });
+    archivesBtnEl = document.getElementById('archives-btn');
+    archivesDropdownEl = document.getElementById('archives-dropdown');
+
     // Initialize countdown elements
+    countdownContainerEl = document.querySelector('.countdown-container');
     countdownEl = document.getElementById('countdown');
     countdownExpiredEl = document.getElementById('countdown-expired');
     countdownDaysEl = document.getElementById('countdown-days');
@@ -62,10 +76,24 @@ async function init() {
     
     // Setup version button listeners
     versionButtons.forEach(btn => {
+        if (btn.id === 'archives-btn') return;
         btn.addEventListener('click', () => switchVersion(btn.dataset.version));
     });
+
+    archivesBtnEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        archivesDropdownEl.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', () => switchVersion(item.dataset.version));
+    });
+
+    document.addEventListener('click', () => {
+        archivesDropdownEl.classList.add('hidden');
+    });
     
-    // Load static JSON data for v1 and v2
+    // Load static JSON data for v1, v2 and v3
     await loadStaticLeaderboards();
     
     // Set loading timeout
@@ -116,15 +144,14 @@ async function init() {
 
 async function loadStaticLeaderboards() {
     try {
-        // Load V1 leaderboard
-        const v1Response = await fetch('leaderboard-v1-export.json');
-        const v1Data = await v1Response.json();
-        leaderboardV1Data = v1Data.Leaderboard || {};
-        
-        // Load V2 leaderboard
-        const v2Response = await fetch('leaderboard-v2-export.json');
-        const v2Data = await v2Response.json();
-        leaderboardV2Data = v2Data.Leaderboard || {};
+        const [v1Response, v2Response, v3Response] = await Promise.all([
+            fetch('leaderboard-v1-export.json'),
+            fetch('leaderboard-v2-export.json'),
+            fetch('leaderboard-v3-export.json')
+        ]);
+        leaderboardV1Data = (await v1Response.json()).Leaderboard || {};
+        leaderboardV2Data = (await v2Response.json()).Leaderboard || {};
+        leaderboardV3Data = (await v3Response.json()).Leaderboard || {};
     } catch (error) {
         console.error('Error loading static leaderboards:', error);
     }
@@ -132,19 +159,38 @@ async function loadStaticLeaderboards() {
 
 function switchVersion(version) {
     currentVersion = version;
-    
+    const isArchive = ['v1', 'v2', 'v3'].includes(version);
+
     // Update button states
     versionButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.version === version);
+        if (btn.id === 'archives-btn') {
+            btn.classList.toggle('active', isArchive);
+        } else {
+            btn.classList.toggle('active', btn.dataset.version === version);
+        }
     });
-    
-    // Update connection status visibility
+
+    // Update leaderboard title label
     if (version === 'current') {
+        leaderboardTitleEl.classList.add('hidden');
+    } else {
+        leaderboardTitleEl.textContent = VERSIONS[version]?.title || '';
+        leaderboardTitleEl.classList.remove('hidden');
+    }
+
+    // Close dropdown
+    archivesDropdownEl.classList.add('hidden');
+
+    // Show countdown only for Trapani Comix
+    countdownContainerEl.classList.toggle('hidden', version !== 'contest');
+
+    // Update connection status visibility
+    if (version === 'current' || version === 'contest') {
         connectionStatusEl.style.display = 'flex';
     } else {
         connectionStatusEl.style.display = 'none';
     }
-    
+
     // Re-render leaderboard with appropriate data
     updateLeaderboard();
     showLeaderboard();
@@ -234,6 +280,22 @@ function updateLeaderboard() {
         case 'v2':
             dataToDisplay = leaderboardV2Data || {};
             break;
+        case 'v3':
+            dataToDisplay = leaderboardV3Data || {};
+            break;
+        case 'contest': {
+            const { start, end } = VERSIONS.contest.dates;
+            const endExclusive = end.slice(0, 8) + String(parseInt(end.slice(8)) + 1).padStart(2, '0');
+            const filtered = {};
+            for (const key in leaderboardData) {
+                const item = leaderboardData[key];
+                if (item && item.datetime && item.datetime >= start && item.datetime < endExclusive) {
+                    filtered[key] = item;
+                }
+            }
+            dataToDisplay = filtered;
+            break;
+        }
         default:
             dataToDisplay = leaderboardData;
     }
@@ -312,7 +374,7 @@ function escapeHtml(text) {
 }
 
 function updateLastUpdateTime() {
-    if (currentVersion === 'current') {
+    if (currentVersion === 'current' || currentVersion === 'contest') {
         lastUpdateLabelEl.textContent = 'Last update';
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', {
@@ -324,7 +386,7 @@ function updateLastUpdateTime() {
     } else {
         // Show date range for archived leaderboards
         lastUpdateLabelEl.textContent = 'Active';
-        const dates = LEADERBOARD_DATES[currentVersion];
+        const dates = VERSIONS[currentVersion]?.dates;
         if (dates) {
             const startDate = new Date(dates.start);
             const endDate = new Date(dates.end);
