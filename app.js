@@ -15,14 +15,14 @@ let leaderboardData = {};
 let leaderboardV1Data = null;
 let leaderboardV2Data = null;
 let leaderboardV3Data = null;
-let currentVersion = 'current'; // 'current', 'contest', 'v1', 'v2', 'v3'
+let currentVersion = 'contest'; // 'current', 'contest', 'v1', 'v2', 'v3'
 let isInitialDataLoaded = false;
 let isConnected = false;
 
 // Version config — edit labels and dates here
 const VERSIONS = {
     current: { label: 'Current',       title: 'Current' },
-    contest: { label: 'Trapani', title: 'Trapani Comix & Games 2026', dates: { start: '2026-05-17', end: '2026-05-19' } },
+    contest: { label: 'Trapani', title: 'Trapani Comix & Games 2026', dates: { start: '2026-05-17', end: '2026-05-24' } },
     v3:      { label: 'Second Wave',   title: 'Second Wave',      dates: { start: '2026-01-18', end: '2026-05-21' } },
     v2:      { label: 'Ostello Bello', title: 'Ostello Bello 2026',    dates: { start: '2026-02-18', end: '2026-02-18' } },
     v1:      { label: 'First Wave',       title: 'First Wave: Release',   dates: { start: '2025-12-16', end: '2026-01-17' } }
@@ -73,6 +73,9 @@ async function init() {
     
     // Start countdown timer
     initCountdown();
+
+    // Trigger default version on load
+    switchVersion(currentVersion);
     
     // Setup version button listeners
     versionButtons.forEach(btn => {
