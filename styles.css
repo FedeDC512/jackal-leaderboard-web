@@ -542,7 +542,10 @@ main {
 
 /* Footer */
 footer {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     padding: 15px;
     color: var(--text-secondary);
     font-size: 0.8rem;
@@ -578,6 +581,16 @@ footer {
 
 /* Responsive */
 @media (max-width: 480px) {
+    footer {
+        flex-direction: column;
+        gap: 2px;
+        padding: 6px;
+    }
+
+    footer .separator {
+        padding: 0;
+    }
+
     header h1 {
         font-size: 1.8rem;
     }

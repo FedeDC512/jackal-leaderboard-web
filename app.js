@@ -8,7 +8,7 @@ let countdownEl, countdownExpiredEl;
 let countdownDaysEl, countdownHoursEl, countdownMinutesEl, countdownSecondsEl;
 
 // Countdown target: 25/06/2026 at 23:59 Italian time (CET = UTC+1)
-const COUNTDOWN_TARGET = new Date('2026-05-24T22:59:59Z');
+const COUNTDOWN_TARGET = new Date('2026-05-24T21:59:59Z');
 
 // App state
 let leaderboardData = {};
