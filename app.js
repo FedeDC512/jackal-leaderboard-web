@@ -2,6 +2,7 @@
 let loadingEl, errorEl, errorMessageEl, leaderboardEl, leaderboardListEl, lastUpdateTimeEl, lastUpdateLabelEl;
 let connectionStatusEl, statusTextEl, leaderboardTitleEl, countdownContainerEl;
 let versionButtons, archivesBtnEl, archivesDropdownEl;
+let bgMusicEl, desktopCountdownSlotEl, mobileCountdownParentEl, mobileCountdownNextEl, sideTextEl;
 
 // Countdown elements
 let countdownEl, countdownExpiredEl;
@@ -70,9 +71,19 @@ async function init() {
     countdownHoursEl = document.getElementById('countdown-hours');
     countdownMinutesEl = document.getElementById('countdown-minutes');
     countdownSecondsEl = document.getElementById('countdown-seconds');
-    
+
+    // Initialize side panel elements
+    bgMusicEl = document.getElementById('bg-music');
+    desktopCountdownSlotEl = document.getElementById('countdown-desktop-slot');
+    sideTextEl = document.querySelector('.side-text');
+    mobileCountdownParentEl = countdownContainerEl.parentElement;
+    mobileCountdownNextEl = countdownContainerEl.nextSibling;
+
     // Start countdown timer
     initCountdown();
+
+    // Initialize side panels (countdown relocation + background music)
+    initSidePanels();
 
     // Trigger default version on load
     switchVersion(currentVersion);
@@ -184,8 +195,10 @@ function switchVersion(version) {
     // Close dropdown
     archivesDropdownEl.classList.add('hidden');
 
-    // Show countdown only for Trapani Comix
-    countdownContainerEl.classList.toggle('hidden', version !== 'contest');
+    // Show countdown and promo text only for Trapani Comix
+    const isContest = version === 'contest';
+    countdownContainerEl.classList.toggle('hidden', !isContest);
+    if (sideTextEl) sideTextEl.classList.toggle('hidden', !isContest);
 
     // Update connection status visibility
     if (version === 'current' || version === 'contest') {
@@ -465,6 +478,35 @@ function updateCountdown() {
     if (countdownHoursEl) countdownHoursEl.textContent = String(hours).padStart(2, '0');
     if (countdownMinutesEl) countdownMinutesEl.textContent = String(minutes).padStart(2, '0');
     if (countdownSecondsEl) countdownSecondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+// Side panels
+function initSidePanels() {
+    relocateCountdown();
+    window.addEventListener('resize', relocateCountdown);
+    initBgMusic();
+}
+
+function relocateCountdown() {
+    if (!desktopCountdownSlotEl) return;
+    if (window.innerWidth >= 1120) {
+        desktopCountdownSlotEl.appendChild(countdownContainerEl);
+    } else {
+        mobileCountdownParentEl.insertBefore(countdownContainerEl, mobileCountdownNextEl);
+    }
+}
+
+function initBgMusic() {
+    if (!bgMusicEl) return;
+    bgMusicEl.play().catch(() => {
+        const unlock = () => {
+            bgMusicEl.play();
+            document.removeEventListener('click', unlock);
+            document.removeEventListener('keydown', unlock);
+        };
+        document.addEventListener('click', unlock);
+        document.addEventListener('keydown', unlock);
+    });
 }
 
 // Start the app when DOM is ready

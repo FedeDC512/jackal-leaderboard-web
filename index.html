@@ -49,6 +49,15 @@
 </head>
 <body>
     <div class="bg-animation"></div>
+    <div class="page-layout">
+
+    <aside class="side-panel side-panel--left">
+        <h2 class="side-title">PLAY NOW<br>SCAN THE QR CODE</h2>
+        <img src="media/qr-code.png" alt="QR Code" class="side-qr">
+        <p class="side-text">Arriva #1 in classifica e vinci una copia di REMATCH per PC!</p>
+        <div id="countdown-desktop-slot"></div>
+    </aside>
+
     <div class="container">
         <header>
             <img src="logo_v2.png" alt="Loot Jackal, Loot!" class="logo hidden">
@@ -125,7 +134,19 @@
             <span class="separator">•</span>
             <span>Game available on <a href="https://frobby.itch.io/loot-jackal-loot" target="_blank">itch.io</a></span>
         </footer>
-    </div>
+    </div><!-- .container -->
+
+    <aside class="side-panel side-panel--right">
+        <video class="side-video" autoplay loop muted playsinline>
+            <source src="media/gameplay.mov" type="video/mp4">
+        </video>
+    </aside>
+
+    </div><!-- .page-layout -->
+
+    <audio id="bg-music" loop>
+        <source src="media/menu.wav" type="audio/wav">
+    </audio>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
