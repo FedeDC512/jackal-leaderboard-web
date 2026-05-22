@@ -2,7 +2,7 @@
 let loadingEl, errorEl, errorMessageEl, leaderboardEl, leaderboardListEl, lastUpdateTimeEl, lastUpdateLabelEl;
 let connectionStatusEl, statusTextEl, leaderboardTitleEl, countdownContainerEl;
 let versionButtons, archivesBtnEl, archivesDropdownEl;
-let bgMusicEl, desktopCountdownSlotEl, mobileCountdownParentEl, mobileCountdownNextEl, sideTextEl;
+let bgMusicEl, musicBtnEl, desktopCountdownSlotEl, mobileCountdownParentEl, mobileCountdownNextEl, sideTextEl;
 
 // Countdown elements
 let countdownEl, countdownExpiredEl;
@@ -74,6 +74,7 @@ async function init() {
 
     // Initialize side panel elements
     bgMusicEl = document.getElementById('bg-music');
+    musicBtnEl = document.getElementById('music-btn');
     desktopCountdownSlotEl = document.getElementById('countdown-desktop-slot');
     sideTextEl = document.querySelector('.side-text');
     mobileCountdownParentEl = countdownContainerEl.parentElement;
@@ -391,7 +392,7 @@ function escapeHtml(text) {
 
 function updateLastUpdateTime() {
     if (currentVersion === 'current' || currentVersion === 'contest') {
-        lastUpdateLabelEl.textContent = 'Last update';
+        if (lastUpdateLabelEl) lastUpdateLabelEl.textContent = 'Last update';
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', {
             hour: '2-digit',
@@ -401,7 +402,7 @@ function updateLastUpdateTime() {
         lastUpdateTimeEl.textContent = timeString;
     } else {
         // Show date range for archived leaderboards
-        lastUpdateLabelEl.textContent = 'Active';
+        if (lastUpdateLabelEl) lastUpdateLabelEl.textContent = 'Active';
         const dates = VERSIONS[currentVersion]?.dates;
         if (dates) {
             const startDate = new Date(dates.start);
@@ -496,17 +497,26 @@ function relocateCountdown() {
     }
 }
 
+const ICON_SOUND = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041M16 8.5c1.333 1.778 1.333 5.222 0 7M19 5c3.988 3.808 4.012 10.217 0 14"/></svg>`;
+const ICON_MUTED = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path d="m22 15l-6-6m6 0l-6 6"/><path stroke-linejoin="round" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041"/></g></svg>`;
+
 function initBgMusic() {
+    if (!bgMusicEl || !musicBtnEl) return;
+    // Start muted by default — user must click to enable
+    bgMusicEl.pause();
+    musicBtnEl.innerHTML = ICON_MUTED;
+    musicBtnEl.addEventListener('click', toggleMusic);
+}
+
+function toggleMusic() {
     if (!bgMusicEl) return;
-    bgMusicEl.play().catch(() => {
-        const unlock = () => {
-            bgMusicEl.play();
-            document.removeEventListener('click', unlock);
-            document.removeEventListener('keydown', unlock);
-        };
-        document.addEventListener('click', unlock);
-        document.addEventListener('keydown', unlock);
-    });
+    if (bgMusicEl.paused) {
+        bgMusicEl.play();
+        musicBtnEl.innerHTML = ICON_SOUND;
+    } else {
+        bgMusicEl.pause();
+        musicBtnEl.innerHTML = ICON_MUTED;
+    }
 }
 
 // Start the app when DOM is ready
