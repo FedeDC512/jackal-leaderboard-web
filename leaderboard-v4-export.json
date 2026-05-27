@@ -1,0 +1,299 @@
+{
+  "Leaderboard": {
+    "chr1x": {
+      "datetime": "2026-05-25T12:08:51",
+      "device_id": "e3337851-d26a-29e9-753d-73ee35b9bdcb",
+      "first_open": "2026-05-25T12:07:06",
+      "joystick": false,
+      "score": 5750,
+      "time": 0.0999999999998537,
+      "version": "1.1.1"
+    },
+    "ciccio": {
+      "datetime": "2026-05-23T21:03:41",
+      "device_id": "c1cea8e1-17ff-1113-dbb6-6dd512268658",
+      "first_open": "2026-05-23T19:13:31",
+      "joystick": false,
+      "score": 3600,
+      "time": 2.45042799999991,
+      "version": "1.1.1"
+    },
+    "dimax": {
+      "datetime": "2026-05-24T22:29:06",
+      "device_id": "96d4e2ad-0d3f-9bf2-4393-0c70f29d4051",
+      "first_open": "2026-05-22T13:46:32",
+      "joystick": false,
+      "score": 13850,
+      "time": 0.699999999999854,
+      "version": "1.1.1"
+    },
+    "dimaxipad": {
+      "datetime": "2026-05-24T22:53:27",
+      "device_id": "81dd65ad-b7a2-717a-2694-2cb688fa7ded",
+      "first_open": "2026-05-24T22:48:02",
+      "joystick": false,
+      "score": 11550,
+      "time": 0.517445999999522,
+      "version": "1.1.1"
+    },
+    "djuseppe": {
+      "datetime": "2026-05-26T02:17:47",
+      "device_id": "79e37b1c-437e-af7d-347e-04db94e2a9a3",
+      "first_open": "2026-05-26T02:14:43",
+      "joystick": false,
+      "score": 8000,
+      "time": 0.51666666666652,
+      "version": "1.1.1"
+    },
+    "donzomboid": {
+      "datetime": "2026-05-22T18:05:08",
+      "device_id": "04444005-3d50-2e4a-91e4-312657e60650",
+      "first_open": "2026-05-22T16:02:44",
+      "score": 12650,
+      "time": 0.300863999999846,
+      "version": "1.1.0"
+    },
+    "efrobbys": {
+      "datetime": "2026-05-22T17:10:58",
+      "device_id": "d1ea714e-0405-a85c-300e-fc0d284a7e4d",
+      "first_open": "2026-05-22T15:58:32",
+      "score": 10650,
+      "time": 0.353817666666465,
+      "version": "1.1.0"
+    },
+    "fededc": {
+      "datetime": "2026-05-23T10:19:31",
+      "device_id": "8726f568-85ff-b801-6ab9-476f46ebdf73",
+      "first_open": "2026-05-23T10:18:19",
+      "score": 7900,
+      "time": 2.17212311111093,
+      "version": "1.1.0"
+    },
+    "frobby2": {
+      "datetime": "2026-05-22T17:03:07",
+      "device_id": "5483e65e-bda9-dcd4-6eef-313fc7106f96",
+      "first_open": "2026-05-22T13:47:39",
+      "score": 8650,
+      "time": 0.667268666666156,
+      "version": "1.1.0"
+    },
+    "frobby22": {
+      "datetime": "2026-05-24T23:45:47",
+      "device_id": "34f7ff29-73d9-9f62-6798-dc24efb34289",
+      "first_open": "2026-05-24T23:36:01",
+      "joystick": true,
+      "score": 10000,
+      "time": 0.850977666666482,
+      "version": "1.1.1"
+    },
+    "frobby3": {
+      "datetime": "2026-05-24T11:13:23",
+      "device_id": "0b111e40-e54b-b9e0-c89b-81872adc6293",
+      "first_open": "2026-05-22T10:01:10",
+      "joystick": true,
+      "score": 9150,
+      "time": 0.0499999999998537,
+      "version": "1.1.1"
+    },
+    "g": {
+      "datetime": "2026-05-23T17:13:05",
+      "device_id": "11a4323d-47ec-053b-3e64-a3cb82441ac4",
+      "first_open": "2026-05-23T17:08:13",
+      "joystick": false,
+      "score": 7200,
+      "time": 1.71636633333315,
+      "version": "1.1.1"
+    },
+    "giacomino": {
+      "datetime": "2026-05-23T11:56:53",
+      "device_id": "71af20f9-ba7b-d158-a814-42fc66add2ab",
+      "first_open": "2026-05-23T11:49:27",
+      "joystick": false,
+      "score": 3950,
+      "time": 1.73460022222203,
+      "version": "1.1.1"
+    },
+    "hacker": {
+      "datetime": "2026-05-23T01:26:33",
+      "device_id": "d0fe69ad-0123-94f4-14c8-74533e533de0",
+      "first_open": "2026-05-23T01:19:11",
+      "score": 12050,
+      "time": 0.517445999999522,
+      "version": "1.1.0"
+    },
+    "j4giopro13": {
+      "datetime": "2026-05-23T21:06:44",
+      "device_id": "19a3d47c-6d8c-2d04-01da-e96c5692f225",
+      "first_open": "2026-05-23T21:04:52",
+      "joystick": false,
+      "score": 2750,
+      "time": 1.19908066666651,
+      "version": "1.1.1"
+    },
+    "j4gioproj4giopro": {
+      "datetime": "2026-05-22T16:12:06",
+      "device_id": "f898403e-44bb-ed2a-ef2f-6737e5f6b016",
+      "first_open": "2026-05-22T16:09:44",
+      "score": 3150,
+      "time": 3.2979,
+      "version": "1.1.0"
+    },
+    "jackc": {
+      "datetime": "2026-05-22T14:14:30",
+      "device_id": "9eb23899-14b3-29f5-bf42-ad1d67e55a5b",
+      "first_open": "2026-05-22T13:43:13",
+      "score": 7700,
+      "time": 1.33405399999984,
+      "version": "1.1.0"
+    },
+    "johnny": {
+      "datetime": "2026-05-22T17:50:18",
+      "device_id": "d2596978-8248-e866-57c8-4acfa8d1d71a",
+      "first_open": "2026-05-22T15:57:40",
+      "score": 8250,
+      "time": 1.96948175757575,
+      "version": "1.1.0"
+    },
+    "kaiji": {
+      "datetime": "2026-05-24T02:56:41",
+      "device_id": "fc10b68a-9118-cfbb-ca17-c9b0b6f42cbf",
+      "first_open": "2026-05-24T02:32:18",
+      "joystick": false,
+      "score": 11000,
+      "time": 0.0507979999995219,
+      "version": "1.1.1"
+    },
+    "lauradac": {
+      "datetime": "2026-05-22T15:25:51",
+      "device_id": "dd58263b-317b-9dcb-bc95-b020b5892f61",
+      "first_open": "2026-05-22T15:21:41",
+      "score": 5800,
+      "time": 3.35929466666621,
+      "version": "1.1.0"
+    },
+    "loke": {
+      "datetime": "2026-05-23T17:33:35",
+      "device_id": "92e221aa-c163-887a-d4e0-a7aa58f74a26",
+      "first_open": "2026-05-23T17:31:44",
+      "joystick": false,
+      "score": 2800,
+      "time": 0.193115333333143,
+      "version": "1.1.1"
+    },
+    "lucia": {
+      "datetime": "2026-05-24T16:05:01",
+      "device_id": "62656313-5c77-1b0c-307d-42a7d62dc1d4",
+      "first_open": "2026-05-24T15:57:39",
+      "joystick": false,
+      "score": 6050,
+      "time": 0.163061333333092,
+      "version": "1.1.1"
+    },
+    "mandor": {
+      "datetime": "2026-05-23T14:41:29",
+      "device_id": "fbc4a8b2-0ceb-346c-00fe-649ea628aa42",
+      "first_open": "2026-05-23T14:33:05",
+      "joystick": false,
+      "score": 7600,
+      "time": 0.466758666666511,
+      "version": "1.1.1"
+    },
+    "mel": {
+      "datetime": "2026-05-23T15:14:58",
+      "device_id": "42f1e9da-9ec8-ea1e-7196-6d023f1c3970",
+      "first_open": "2026-05-23T14:16:16",
+      "joystick": false,
+      "score": 9050,
+      "time": 1.51907799999984,
+      "version": "1.1.1"
+    },
+    "mels": {
+      "datetime": "2026-05-23T22:23:29",
+      "device_id": "36e88e50-779c-4da5-02b4-35abe461514c",
+      "first_open": "2026-05-22T15:21:30",
+      "joystick": false,
+      "score": 9300,
+      "time": 0.644039666666576,
+      "version": "1.1.1"
+    },
+    "n1tr0x": {
+      "datetime": "2026-05-24T20:55:40",
+      "device_id": "83b9f64b-8269-539e-8a70-0d4ca4077754",
+      "first_open": "2026-05-22T18:01:58",
+      "joystick": false,
+      "score": 13700,
+      "time": 0.350785999999522,
+      "version": "1.1.1"
+    },
+    "nicetrydonz": {
+      "datetime": "2026-05-22T18:31:21",
+      "device_id": "7c5d6148-a079-1aed-b67c-fc75c45b4674",
+      "first_open": "2026-05-22T11:39:08",
+      "score": 12900,
+      "time": 0.219227666666495,
+      "version": "1.1.0"
+    },
+    "ninonino": {
+      "datetime": "2026-05-23T14:10:02",
+      "device_id": "d9157f48-be02-4b20-de47-2aff80872b5e",
+      "first_open": "2026-05-22T17:01:52",
+      "score": 13350,
+      "time": 0.100643999999899,
+      "version": "1.1.0"
+    },
+    "ppp": {
+      "datetime": "2026-05-23T00:55:50",
+      "device_id": "6cb7bdbf-60b9-ae49-5903-2c9e01349660",
+      "first_open": "2026-05-23T00:55:05",
+      "score": 12760,
+      "time": 7.27241199999983,
+      "version": "1.1.0"
+    },
+    "salvoble": {
+      "datetime": "2026-05-22T19:43:31",
+      "device_id": "2982c191-29d8-1fff-c27f-9f0ddb09a280",
+      "first_open": "2026-05-22T19:41:07",
+      "score": 8500,
+      "time": 0.909819999999718,
+      "version": "1.1.0"
+    },
+    "sciarcan": {
+      "datetime": "2026-05-23T12:35:10",
+      "device_id": "f54ca210-0579-bf7e-3436-2a738c1a37a8",
+      "first_open": "2026-05-22T12:58:09",
+      "score": 8200,
+      "time": 0.858346666666617,
+      "version": "1.1.0"
+    },
+    "stefox": {
+      "datetime": "2026-05-24T11:40:36",
+      "device_id": "5eaa0b28-73f2-843a-0bc0-56fd7177214d",
+      "first_open": "2026-05-24T11:37:51",
+      "joystick": false,
+      "score": 5400,
+      "time": 4.51996899999982,
+      "version": "1.1.1"
+    },
+    "tokenz": {
+      "datetime": "2026-05-22T13:09:36",
+      "device_id": "2c1c76d4-bb0c-5933-4eab-970522e60dec",
+      "first_open": "2026-05-22T11:21:34",
+      "score": 9950,
+      "time": 0.29293333333331,
+      "version": "1.1.0"
+    },
+    "xd": {
+      "datetime": "2026-05-24T14:59:16",
+      "device_id": "2d71e287-d70f-72e2-a4d5-b9d0d6824b18",
+      "first_open": "2026-05-24T14:54:13",
+      "joystick": false,
+      "score": 200,
+      "time": 16.9178333333332,
+      "version": "1.1.1"
+    }
+  },
+  "config": {
+    "current_version": "1.1.1",
+    "update_message": "Ciao Trapani!\\nNovità:\\n• Movimento più fluido\\n• Classifica ottimizzata\\n\\nArriva #1 in classifica prima della fine del Trapani Comix & Games e vinci una copia di REMATCH per PC!\\nBuona fortuna!"
+  }
+}

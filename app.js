@@ -8,22 +8,24 @@ let bgMusicEl, musicBtnEl, desktopCountdownSlotEl, mobileCountdownParentEl, mobi
 let countdownEl, countdownExpiredEl;
 let countdownDaysEl, countdownHoursEl, countdownMinutesEl, countdownSecondsEl;
 
-// Countdown target: 25/06/2026 at 23:59 Italian time (CET = UTC+1)
-const COUNTDOWN_TARGET = new Date('2026-05-24T21:59:59Z');
+// Countdown target at 23:59 Italian time (CET = UTC+1)
+const COUNTDOWN_TARGET = new Date('2026-05-31T21:59:59Z');
 
 // App state
 let leaderboardData = {};
 let leaderboardV1Data = null;
 let leaderboardV2Data = null;
 let leaderboardV3Data = null;
-let currentVersion = 'current'; // 'current', 'contest', 'v1', 'v2', 'v3'
+let leaderboardV4Data = null;
+let currentVersion = 'contest'; // 'current', 'contest', 'v1', 'v2', 'v3', 'v4'
 let isInitialDataLoaded = false;
 let isConnected = false;
 
 // Version config — edit labels and dates here
 const VERSIONS = {
     current: { label: 'Current',       title: 'Current' },
-    contest: { label: 'Trapani', title: 'Trapani Comix & Games 2026', dates: { start: '2026-05-17', end: '2026-05-24' } },
+    contest: { label: 'Bari', title: 'LevanteFor 2026', dates: { start: '2026-05-30', end: '2026-05-31' } },
+    v4:      { label: 'Trapani', title: 'Trapani Comix & Games 2026', dates: { start: '2026-05-22', end: '2026-05-24' } },
     v3:      { label: 'Second Wave',   title: 'Second Wave',      dates: { start: '2026-01-18', end: '2026-05-21' } },
     v2:      { label: 'Ostello Bello', title: 'Ostello Bello 2026',    dates: { start: '2026-02-18', end: '2026-02-18' } },
     v1:      { label: 'First Wave',       title: 'First Wave: Release',   dates: { start: '2025-12-16', end: '2026-01-17' } }
@@ -159,14 +161,16 @@ async function init() {
 
 async function loadStaticLeaderboards() {
     try {
-        const [v1Response, v2Response, v3Response] = await Promise.all([
+        const [v1Response, v2Response, v3Response, v4Response] = await Promise.all([
             fetch('leaderboard-v1-export.json'),
             fetch('leaderboard-v2-export.json'),
-            fetch('leaderboard-v3-export.json')
+            fetch('leaderboard-v3-export.json'),
+            fetch('leaderboard-v4-export.json')
         ]);
         leaderboardV1Data = (await v1Response.json()).Leaderboard || {};
         leaderboardV2Data = (await v2Response.json()).Leaderboard || {};
         leaderboardV3Data = (await v3Response.json()).Leaderboard || {};
+        leaderboardV4Data = (await v4Response.json()).Leaderboard || {};
     } catch (error) {
         console.error('Error loading static leaderboards:', error);
     }
@@ -174,7 +178,7 @@ async function loadStaticLeaderboards() {
 
 function switchVersion(version) {
     currentVersion = version;
-    const isArchive = ['v1', 'v2', 'v3'].includes(version);
+    const isArchive = ['v1', 'v2', 'v3', 'v4'].includes(version);
 
     // Update button states
     versionButtons.forEach(btn => {
@@ -300,6 +304,9 @@ function updateLeaderboard() {
         case 'v3':
             dataToDisplay = leaderboardV3Data || {};
             break;
+        case 'v4':
+            dataToDisplay = leaderboardV4Data || {};
+            break;
         case 'contest': {
             const { start, end } = VERSIONS.contest.dates;
             const endExclusive = end.slice(0, 8) + String(parseInt(end.slice(8)) + 1).padStart(2, '0');
@@ -328,7 +335,7 @@ function updateLeaderboard() {
             entries.push({
                 name: key,
                 score: parseInt(item.score) || 0,
-                time: parseFloat(item.time).toFixed(2) || null // Add time in seconds
+                time: item.time != null ? parseFloat(item.time).toFixed(2) : null // Add time in seconds
             });
         }
     }
@@ -338,9 +345,10 @@ function updateLeaderboard() {
         if (b.score !== a.score) {
             return b.score - a.score;
         }
-        // Se score uguali, ordina per tempo decrescente (maggiore prima)
-        // entry.time è stringa, quindi va convertita a float
-        return parseFloat(b.time) - parseFloat(a.time);
+        // If scores equal, sort by time descending (larger first)
+        const ta = parseFloat(a.time) || 0;
+        const tb = parseFloat(b.time) || 0;
+        return tb - ta;
     });
 
     // Generate HTML
