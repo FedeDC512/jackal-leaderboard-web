@@ -2,6 +2,7 @@
 let loadingEl, errorEl, errorMessageEl, leaderboardEl, leaderboardListEl, lastUpdateTimeEl, lastUpdateLabelEl;
 let connectionStatusEl, statusTextEl, leaderboardTitleEl, countdownContainerEl;
 let versionButtons, archivesBtnEl, archivesDropdownEl;
+let bgMusicEl, musicBtnEl, desktopCountdownSlotEl, mobileCountdownParentEl, mobileCountdownNextEl, sideTextEl;
 
 // Countdown elements
 let countdownEl, countdownExpiredEl;
@@ -70,9 +71,20 @@ async function init() {
     countdownHoursEl = document.getElementById('countdown-hours');
     countdownMinutesEl = document.getElementById('countdown-minutes');
     countdownSecondsEl = document.getElementById('countdown-seconds');
-    
+
+    // Initialize side panel elements
+    bgMusicEl = document.getElementById('bg-music');
+    musicBtnEl = document.getElementById('music-btn');
+    desktopCountdownSlotEl = document.getElementById('countdown-desktop-slot');
+    sideTextEl = document.querySelector('.side-text');
+    mobileCountdownParentEl = countdownContainerEl.parentElement;
+    mobileCountdownNextEl = countdownContainerEl.nextSibling;
+
     // Start countdown timer
     initCountdown();
+
+    // Initialize side panels (countdown relocation + background music)
+    initSidePanels();
 
     // Trigger default version on load
     switchVersion(currentVersion);
@@ -184,8 +196,10 @@ function switchVersion(version) {
     // Close dropdown
     archivesDropdownEl.classList.add('hidden');
 
-    // Show countdown only for Trapani Comix
-    countdownContainerEl.classList.toggle('hidden', version !== 'contest');
+    // Show countdown and promo text only for Trapani Comix
+    const isContest = version === 'contest';
+    countdownContainerEl.classList.toggle('hidden', !isContest);
+    if (sideTextEl) sideTextEl.classList.toggle('hidden', !isContest);
 
     // Update connection status visibility
     if (version === 'current' || version === 'contest') {
@@ -378,7 +392,7 @@ function escapeHtml(text) {
 
 function updateLastUpdateTime() {
     if (currentVersion === 'current' || currentVersion === 'contest') {
-        lastUpdateLabelEl.textContent = 'Last update';
+        if (lastUpdateLabelEl) lastUpdateLabelEl.textContent = 'Last update';
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', {
             hour: '2-digit',
@@ -388,7 +402,7 @@ function updateLastUpdateTime() {
         lastUpdateTimeEl.textContent = timeString;
     } else {
         // Show date range for archived leaderboards
-        lastUpdateLabelEl.textContent = 'Active';
+        if (lastUpdateLabelEl) lastUpdateLabelEl.textContent = 'Active';
         const dates = VERSIONS[currentVersion]?.dates;
         if (dates) {
             const startDate = new Date(dates.start);
@@ -465,6 +479,44 @@ function updateCountdown() {
     if (countdownHoursEl) countdownHoursEl.textContent = String(hours).padStart(2, '0');
     if (countdownMinutesEl) countdownMinutesEl.textContent = String(minutes).padStart(2, '0');
     if (countdownSecondsEl) countdownSecondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+// Side panels
+function initSidePanels() {
+    relocateCountdown();
+    window.addEventListener('resize', relocateCountdown);
+    initBgMusic();
+}
+
+function relocateCountdown() {
+    if (!desktopCountdownSlotEl) return;
+    if (window.innerWidth >= 1120) {
+        desktopCountdownSlotEl.appendChild(countdownContainerEl);
+    } else {
+        mobileCountdownParentEl.insertBefore(countdownContainerEl, mobileCountdownNextEl);
+    }
+}
+
+const ICON_SOUND = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041M16 8.5c1.333 1.778 1.333 5.222 0 7M19 5c3.988 3.808 4.012 10.217 0 14"/></svg>`;
+const ICON_MUTED = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path d="m22 15l-6-6m6 0l-6 6"/><path stroke-linejoin="round" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041"/></g></svg>`;
+
+function initBgMusic() {
+    if (!bgMusicEl || !musicBtnEl) return;
+    // Start muted by default — user must click to enable
+    bgMusicEl.pause();
+    musicBtnEl.innerHTML = ICON_MUTED;
+    musicBtnEl.addEventListener('click', toggleMusic);
+}
+
+function toggleMusic() {
+    if (!bgMusicEl) return;
+    if (bgMusicEl.paused) {
+        bgMusicEl.play();
+        musicBtnEl.innerHTML = ICON_SOUND;
+    } else {
+        bgMusicEl.pause();
+        musicBtnEl.innerHTML = ICON_MUTED;
+    }
 }
 
 // Start the app when DOM is ready

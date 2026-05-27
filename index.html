@@ -49,6 +49,15 @@
 </head>
 <body>
     <div class="bg-animation"></div>
+    <div class="page-layout">
+
+    <aside class="side-panel side-panel--left">
+        <h2 class="side-title">PLAY NOW<br>SCAN THE QR CODE</h2>
+        <img src="media/qr-code.png" alt="QR Code" class="side-qr">
+        <p class="side-text">Arriva #1 in classifica e vinci una copia di REMATCH per PC!</p>
+        <div id="countdown-desktop-slot"></div>
+    </aside>
+
     <div class="container">
         <header>
             <img src="logo_v2.png" alt="Loot Jackal, Loot!" class="logo hidden">
@@ -113,11 +122,16 @@
         </main>
         
         <div class="status-bar">
-            <div id="connection-status" class="connection-status connected">
-                <span class="status-dot"></span>
-                <span id="status-text">Live</span>
+            <div class="status-info">
+                <div id="connection-status" class="connection-status connected">
+                    <span class="status-dot"></span>
+                    <span id="status-text">Live</span>
+                </div>
+                <p class="last-update"><span id="last-update-label">Last update</span><span class="last-update-sep">: </span><span id="last-update-time">--:--:--</span></p>
             </div>
-            <p class="last-update"><span id="last-update-label">Last update</span>: <span id="last-update-time">--:--:--</span></p>
+            <button id="music-btn" class="music-btn" title="Toggle music">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path d="m22 15l-6-6m6 0l-6 6"/><path stroke-linejoin="round" d="M2 14.959V9.04C2 8.466 2.448 8 3 8h3.586a.98.98 0 0 0 .707-.305l3-3.388c.63-.656 1.707-.191 1.707.736v13.914c0 .934-1.09 1.395-1.716.726l-2.99-3.369A.98.98 0 0 0 6.578 16H3c-.552 0-1-.466-1-1.041"/></g></svg>
+            </button>
         </div>
         
         <footer>
@@ -125,7 +139,19 @@
             <span class="separator">•</span>
             <span>Game available on <a href="https://frobby.itch.io/loot-jackal-loot" target="_blank">itch.io</a></span>
         </footer>
-    </div>
+    </div><!-- .container -->
+
+    <aside class="side-panel side-panel--right">
+        <video class="side-video" autoplay loop muted playsinline>
+            <source src="media/gameplay.mov" type="video/mp4">
+        </video>
+    </aside>
+
+    </div><!-- .page-layout -->
+
+    <audio id="bg-music" loop>
+        <source src="media/menu.wav" type="audio/wav">
+    </audio>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
