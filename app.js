@@ -15,7 +15,7 @@ let leaderboardData = {};
 let leaderboardV1Data = null;
 let leaderboardV2Data = null;
 let leaderboardV3Data = null;
-let currentVersion = 'contest'; // 'current', 'contest', 'v1', 'v2', 'v3'
+let currentVersion = 'current'; // 'current', 'contest', 'v1', 'v2', 'v3'
 let isInitialDataLoaded = false;
 let isConnected = false;
 
